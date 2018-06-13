@@ -103,6 +103,9 @@ print ("Your input is:", testX, "and classified to class: ", outputLabel)
 
 
 '''Sklearn代码实现'''
+# weights参数有’uniform’和‘distance’两种
+#algorithm可选参数有‘ball_tree’、 ‘kd_tree’ 、‘brute’和‘auto’ 
+
 from sklearn import neighbors   
 knn = neighbors.KNeighborsClassifier(n_neighbors=4,weights='distance') #取得knn分类器    
 #data = np.array([[3,104],[2,100],[1,81],[101,10],[99,5],[98,2]])
