@@ -33,7 +33,9 @@ def setOfWords2Vec(vocabList, inputSet):
     returnVec = [0] * len(vocabList)
     for word in inputSet:
         if word in vocabList:
-            returnVec[vocabList.index(word)] = 1
+            returnVec[vocabList.index(word)] = 1      # index函数在字符串里找到字符第一次出现的位置  词集模型
+            #returnVec[vocabList.index(word)] += 1      # 文档的词袋模型    每个单词可以出现多次
+
         else:
             pass
             # print("\'%s\' 不存在于词典中"%word)
