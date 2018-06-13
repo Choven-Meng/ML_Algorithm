@@ -21,13 +21,15 @@ def loadTrainDataSet():
         postingList.append(temp)
     return postingList, classVec
 
+# 创建一个包含在所有文档中出现的不重复词的列表
 def createVocabList(dataSet):
     # 创建词典
-    vocabSet = set([])  # 定义list型的集合
+    vocabSet = set([])  # 定义list型的空集合
     for document in dataSet:
-        vocabSet = vocabSet | set(document)
+        vocabSet = vocabSet | set(document)    #两个集合的并集
     return list(vocabSet)
 
+# 将文档词条转换成词向量
 def setOfWords2Vec(vocabList, inputSet):
     # 对于每一个训练样本，得到其特征向量
     returnVec = [0] * len(vocabList)
@@ -40,6 +42,7 @@ def setOfWords2Vec(vocabList, inputSet):
             pass
             # print("\'%s\' 不存在于词典中"%word)
     return returnVec
+
 
 def createTrainMatrix(vocabList,postingList):
     # 生成训练矩阵，即每个样本的特征向量
@@ -55,8 +58,8 @@ def trainNB0(trainMatrix, trainCategory):
     numWords = len(trainMatrix[0])  # 样本特征数
     pAbusive = sum(trainCategory)/float(numTrainDocs) #p(y=1)
     # 分子赋值为1，分母赋值为2（拉普拉斯平滑）
-    p0Num = ones(numWords)   # 初始化向量，代表所有0类样本中词j出现次数
-    p1Num = ones(numWords)   # 初始化向量，代表所有1类样本中词j出现次数
+    p0Num = ones(numWords)   # 初始化向量，代表所有0类样本中词j出现次数  ## 避免一个概率值为0,最后的乘积也为0
+    p1Num = ones(numWords)   # 初始化向量，代表所有1类样本中词j出现次数  ## 用来统计两类数据中，各词的词频
     p0Denom = p1Denom = 2.0  # 代表0类1类样本的总词数
     for i in range(numTrainDocs):
         if trainCategory[i] == 1:
@@ -68,8 +71,8 @@ def trainNB0(trainMatrix, trainCategory):
     # p1Vect = p1Num/p1Denom  # 概率向量(p(x0=1|y=1),p(x1=1|y=1),...p(xn=1|y=1))
     # p0Vect = p0Num/p0Denom  # 概率向量(p(x0=1|y=0),p(x1=1|y=0),...p(xn=1|y=0))
     # 取对数，之后的乘法就可以改为加法，防止数值下溢损失精度
-    p1Vect = log( p1Num/p1Denom)
-    p0Vect = log(p0Num/p0Denom)
+    p1Vect = log( p1Num/p1Denom)  # 在类1中，每个次的发生概率
+    p0Vect = log(p0Num/p0Denom)   # 避免下溢出或者浮点数舍入导致的错误   下溢出是由太多很小的数相乘得到的
     return p0Vect,p1Vect,pAbusive
 
 
