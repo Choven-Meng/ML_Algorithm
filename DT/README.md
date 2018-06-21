@@ -195,4 +195,55 @@ N<sub>t</sub>个样本点，其中k类样本点有N<sub>tk</sub>个，k=1,2,...,
  
  ### （2）分类树的生成
  
+ 分类树用基尼指数选择最优特征，同时决定该特征的最优二值切分点。
  
+ **定义（基尼指数）:**
+ 
+ &emsp;&emsp;分类问题中，假设有K个类，样本点属于第k类的概率为p<sub>k</sub>，则概率分布的基尼指数定义为:  
+ 
+ &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;<img width="240" height="40"  alt="基尼指数" src="http://images0.cnblogs.com/blog/790160/201508/281728173287241.png" border="0">
+
+对于二类分类问题，若样本点属于第1个类的概率是p，则概率分布的基尼指数为 :  
+ &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;Gini(p)=2p(1-p)  
+ 
+ 对于给定的样本集合D，其基尼指数为 :  
+  &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;<img width="149" height="40"  src="http://images0.cnblogs.com/blog/790160/201508/281728180006613.png" border="0">  
+  C<sub>k</sub>是D中属于第k类的样本子集，K是类的个数。  
+  
+  如果样本集合D根据特征A是否取某一可能值a被分割成D<sub>1</sub>和D<sub>2</sub>两部分，即:  
+  &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;<img width="240" height="30" src="http://images0.cnblogs.com/blog/790160/201508/281728203593002.png" border="0">
+  
+  则在特征A的条件下，集合D的基尼指数定义为:  
+ &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; <img width="240" height="50" src="http://images0.cnblogs.com/blog/790160/201508/281728187034228.png" border="0">
+ 
+ 基尼指数Gini(D)表示集合D的不确定性，基尼指数Gini(D,A)表示A =a 分割后集合D的不确定性。基尼指数值越大，样本集合的不确定性也越大，这一点与熵相似。所以选择基尼指数较小的划分。  
+ 
+ 简单来说，基尼指数反映了数据集合的混乱程度。当基尼指数越大时，当前数据越混沌的，分布均匀时取极值。
+ 
+ **举例分析基尼指数是如何一并选择特征向量和寻找最佳切分点的：**    
+ 
+ > 下表是一个由15个样本组成的贷款申请训练数据:  
+ > <img width="300" height="250" src="https://img-blog.csdn.net/20161121195010647" alt="Alt text" title="">
+ 
+>解：首先计算各特征的基尼指数，选择最优特征以及最优切分点。分别以A1,A2,A3,A4表示年龄、有工作、有自己的房子和信贷情况4个特征，并以1，2，3表示年龄的值为青年、中年和老年，以1，2表示有工作和有自己的房子的值是和否，以1，2，3表示信贷情况的值为非常好、好和一般。
+
+求特征A1的基尼指数：
+
+|      |	青年（总量 = 5）|	中年、老年（总量 = 10）|
+| :---:|     :---:      |        :---:          |
+| 能否贷款|	否，否，是，是，否|	否，否，是，是，是，是，是，是，是，否|
+
+基尼指数在选取最优切分点的过程中，会分为当前特征标签和其他特征标签两类。所以 :  
+&emsp;&emsp;&emsp;&emsp; Gini(D,A<sub>1</sub>=1)=(5/15){2×(2/5)×(1−(2/5)}+10/15{2×(7/10)×(1−7/10)}=0.44    
+
+第一部分是青年标签里能否贷款的数据混沌度，第二部分是中年和老年加在一起的数据混沌度。同理：   
+&emsp;&emsp;&emsp;&emsp; Gini(D,A<sub>2</sub>=1)=0.32  
+&emsp;&emsp;&emsp;&emsp; Gini(D,A<sub>3</sub>=1)=0.27  
+由于A2和A3只有一个切分点，所以它们就是最优切分点。  
+求特征A<sub>4</sub>的基尼指数：   
+&emsp;&emsp;&emsp;&emsp;Gini(D,A<sub>4</sub>=1)=0.36  
+&emsp;&emsp;&emsp;&emsp;Gini(D,A<sub>4</sub>=2)=0.47    
+&emsp;&emsp;&emsp;&emsp;Gini(D,A<sub>4</sub>=3)=0.32  
+
+Gini(D,A<sub>4</sub>=3)最小，所以A<sub>4</sub>=3为A<sub>4</sub>的最优切分点。  
+在A<sub>1</sub>,A<sub>2</sub>,A<sub>3</sub>,A<sub>4</sub>几个特征中，Gini(D,A<sub>3</sub>=1)=0.27最小，所以选择特征A<sub>3</sub>为最优特征，A3=1为其最优切分点。于是根结点生成两个子结点，一个是叶结点。对另一个结点继续使用以上方法在A<sub>1</sub>,A<sub>2</sub>,A<sub>4</sub>中选择最优特征及其最优切分点，结果是A<sub>2</sub>=1，以此计算得知，所得结点都是叶结点。
