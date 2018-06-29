@@ -12,13 +12,25 @@
 ## logistic回归是如何工作的
 
 Logistic 回归通过使用其固有的 logistic 函数估计概率，来衡量因变量（我们想要预测的标签）与一个或多个自变量（特征）之间的关系。   
-然后这些概率必须二值化才能真地进行预测。这就是 logistic 函数的任务，也称为 sigmoid 函数。Sigmoid 函数是一个 S 形曲线，它可以将任意实数值映射到介于 0 和 1 之间的值，但并不会取到 0/1。然后使用阈值分类器将 0 和 1 之间的值转换为 0 或 1。   
+然后这些概率必须二值化才能真地进行预测。这就是 logistic 函数的任务，也称为 sigmoid 函数。Sigmoid 函数是一个 S 形曲线，它可以将任意实数值映射到介于 0 和 1 之间的值，但并不会取到 0/1。然后使用阈值分类器将 0 和 1 之间的值转换为 0 或 1。sigmoid 函数:  
+
+<img src="https://img-blog.csdn.net/20170426142819918" alt="">
+
 下面的图片说明了 logistic 回归得出预测所需的所有步骤：  
 <img  src="https://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gWicMpaiaku5HZVfmoEL2hmBBficJdw7lyMLr99aG0fzOg6O28Z1NTeBdZAg8twVbgHrcTQ8qZtjLqfaQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" width=400 height=256  >  
 
+
 下面是 logistic 函数（sigmoid 函数）的图形表示：
 
-<img src="https://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gWicMpaiaku5HZVfmoEL2hmBBfPN0diby5s1yowicAhenEBUj5gibvvtSq7Y1EfjKm7Iw01Ir7WBu6piaurQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" width=350 height=256>
+<img src="https://img-blog.csdn.net/20170426143451022" alt="">
+
+当z为0的时候，函数值为0.5；随着z的增大，函数值逼近于1；随着z的减小，函数值逼近于0.  
+所以，这个函数很适合做我们刚才提到的二分类的分类函数。假设输入数据的特征是(x0, x1, x2, ..., xn)，我们在每个特征上乘以一个回归系数 (w0, w1, w2, ... , wn)，然后累加得到sigmoid函数的输入z：  
+<img src="https://img-blog.csdn.net/20170426144754539" alt="">  
+那么，输出就是一个在0~1之间的值，我们把输出大于0.5的数据分到1类，把输出小于0.5的数据分到0类。这就是Logistic回归的分类过程.  
+我们要做的，就是确定这个分类器中的 **最佳回归系数**，即(w0, w1, w2, ... , wn)  
+
+
 
 我们希望随机数据点 **被正确分类的概率最大化**，这就是 **最大似然估计**。最大似然估计是统计模型中估计参数的通用方法。  
 你可以使用不同的方法（如优化算法）来最大化概率。牛顿法也是其中一种，可用于查找许多不同函数的最大值（或最小值），包括似然函数。也可以用梯度下降法代替牛顿法。  
