@@ -47,8 +47,7 @@ b<sub>i</sub>足够大，那么s<sub>i</sub>趋近于1，说明聚类效果比�
 
 常用的距离度量方法包括：欧几里得距离和余弦相似度。两者都是评定个体间差异的大小的。   
 **欧氏距离** 是最常见的距离度量，而 **余弦相似度** 则是最常见的相似度度量。  
-<img src="https://img-blog.csdn.net/20161218152146962?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGFveWFucWk4OTMy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast"  width="400" height="300" >  
-
+<img src="https://img-blog.csdn.net/20161218152146962?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGFveWFucWk4OTMy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" >
 
  
 
