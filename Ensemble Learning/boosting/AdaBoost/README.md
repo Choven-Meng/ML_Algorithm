@@ -25,7 +25,7 @@ AdaBoost是adaptive boosting( **自适应boosting** )的缩写，其运行过程
 &emsp;&emsp;(b)计算第m次分类器G <sub>m</sub> (x)在训练数据集上的分类误差率  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56380856efeae09c2689nnOl.jpg">    
-e <sub>m</sub> = 未正确分类的样本数目/所有样本数目  
+&emsp;&emsp;&emsp; **e <sub>m</sub> = 未正确分类的样本数目/所有样本数目**  
 
 &emsp;&emsp;(c)计算第m次分类器G <sub>m</sub> (x)的系数  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
