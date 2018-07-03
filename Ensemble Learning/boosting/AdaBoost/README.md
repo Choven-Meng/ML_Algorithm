@@ -38,9 +38,9 @@ e <sub>m</sub> = 未正确分类的样本数目/所有样本数目
 &emsp;&emsp;&emsp;&emsp;其中，Z <sub>m</sub> 是规范化因子，使得D <sub>m</sub> +1成为一个概率分布：   
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56383356efeaf9bd0d1EXrW9.jpg">   
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;通过简化，可把上述的更新权值公式简化为：  
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;正确分类时：1/2(1-e <sub>m</sub> )   
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;错误分类时：1/2e<sub>m</sub>   
+&emsp;&emsp;;通过简化，可把上述的更新权值公式简化为：  
+&emsp;&emsp;&emsp;&emsp;* 正确分类时：**1/2(1-e <sub>m</sub> )**       
+&emsp;&emsp;&emsp;&emsp;* 错误分类时：**1/2e<sub>m</sub>**   
 
 (3)构建基本分类器的线性组合    
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
