@@ -35,17 +35,19 @@ e <sub>m</sub> = 未正确分类的样本数目/所有样本数目
 &emsp;&emsp;(d)更新训练数据集的权值分布（目的：得到样本的新的权值分布），用于下一轮迭代,使得被基本分类器Gm(x)误分类样本的权值增大，而被正确分类样本的权值减小。就这样，通过这样的方式，AdaBoost方法能“重点关注”或“聚焦于”那些较难分的样本上。   
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56382656efeaf2372733bVFy.jpg">       
-其中，Z <sub>m</sub> 是规范化因子，使得D <sub>m</sub> +1成为一个概率分布：   
+&emsp;&emsp;&emsp;&emsp;其中，Z <sub>m</sub> 是规范化因子，使得D <sub>m</sub> +1成为一个概率分布：   
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56383356efeaf9bd0d1EXrW9.jpg">   
-通过简化，可把上述的更新权值公式简化为：  
-正确分类时：1/2(1-e <sub>m</sub> )   
-错误分类时：1/2e<sub>m</sub>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;通过简化，可把上述的更新权值公式简化为：  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;正确分类时：1/2(1-e <sub>m</sub> )   
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;错误分类时：1/2e<sub>m</sub>   
 
-
-
-
-
-
+(3)构建基本分类器的线性组合    
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<img src="http://static.yihaodou.com/tec_data/2016/03/56384156efeb01683c55dFzZ.jpg">    
+&emsp;&emsp;&emsp;&emsp;&emsp;得到最终分类器：   
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<img src="http://static.yihaodou.com/tec_data/2016/03/56384856efeb08a44546tlhu.jpg">
 
 
 
