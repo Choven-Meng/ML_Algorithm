@@ -39,8 +39,8 @@ AdaBoost是adaptive boosting( **自适应boosting** )的缩写，其运行过程
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56383356efeaf9bd0d1EXrW9.jpg">   
 &emsp;&emsp;;通过简化，可把上述的更新权值公式简化为：  
-&emsp;&emsp;&emsp;&emsp;* 正确分类时：**1/2(1-e <sub>m</sub> )**       
-&emsp;&emsp;&emsp;&emsp;* 错误分类时：**1/2e<sub>m</sub>**   
+&emsp;&emsp;&emsp;&emsp;* **正确分类时：w<sub>2i</sub> = w<sub>1i</sub>/2(1-e <sub>m</sub> )**       
+&emsp;&emsp;&emsp;&emsp;* **错误分类时：w<sub>2i</sub> = w<sub>1i</sub>/2e<sub>m</sub>**   
 
 (3)构建基本分类器的线性组合    
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
