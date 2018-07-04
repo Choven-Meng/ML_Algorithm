@@ -1,6 +1,8 @@
 # AdaBoost
 
-AdaBoost是adaptive boosting( **自适应boosting** )的缩写，其运行过程如下：   
+AdaBoost算法是模型为**加法模型**、损失函数为**指数函数**、学习算法为**前向分步算法**时的二类分类学习方法。
+
+AdaBoost是adaptive boosting( **自适应增强** )的缩写，其运行过程如下：   
 > &emsp;&emsp;训练数据中的每个样本，并赋予其一个权重，这些权重构成了向量D，一开始，这些权重都初始化成**相等值**。首先在训练数据上训练出一个若分类器并计算该分类器的错误率，然后在同一数据集上再次训练弱分类器。在分类器的第二次训练中，将会重新调整每个样本的权重，其中第一次分对的样本的权重将会降低，而第一次分错的样本的权重将会提高。为了从所有弱分类器中得到最终的分类结果，AdaBoost为每个分类器都分配了一个权重值alpha，这些alpha值是基于每个弱分类器的错误率进行计算的。  计算出alpha值之后，可以对权重向量D进行更新，以使得那些正确分类的样本的权重降低而错分样本的权重升高。AdaBoost算法会不断地重复训练和调整权重的过程，直到训练错误率为0或弱分类器的数目达到指定值为止。
 
 ## 算法思想
@@ -50,15 +52,8 @@ AdaBoost是adaptive boosting( **自适应boosting** )的缩写，其运行过程
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56384856efeb08a44546tlhu.jpg">
 
+公式推导过程详见[链接](https://blog.csdn.net/dream_angel_z/article/details/52348135)
+
+AdaBoost最基本的性质是能在学习过程中**不断减少训练误差（训练误差以指数速率下降）**，即在训练数据集上的分类误差率。  
 
 
-
-
-
-
-
-
-
-
-
-[公式推导过程](https://blog.csdn.net/dream_angel_z/article/details/52348135)
