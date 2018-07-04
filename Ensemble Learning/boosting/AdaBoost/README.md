@@ -17,7 +17,8 @@ AdaBoost是adaptive boosting( **自适应boosting** )的缩写，其运行过程
 （1）初始化训练数据的权值分布，每一个训练样本最开始时都被赋予相同的权值：1/N。  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img title="Adaboost 算法的原理" class="imgshow" alt="Adaboost 算法的原理"  src="http://static.yihaodou.com/tec_data/2016/03/56369856efea72dad24vJIiJ.jpg">
 
-(2)对m=1，2，...，M
+(2)对m=1，2，...，M   
+
 &emsp;&emsp;(a)使用具有权值分布D <sub>m</sub>的训练数据集学习，得到基本分类器（选取让误差率最低的阈值来设计基本分类器）：  
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 <img src="http://static.yihaodou.com/tec_data/2016/03/56380056efead8926210gdC3.jpg">
