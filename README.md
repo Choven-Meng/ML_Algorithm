@@ -10,3 +10,5 @@
 ### [LogisticRegression](https://github.com/Choven-Meng/ML_Algorithm/tree/master/LogisticRegression)
 
 ### [K-means](https://github.com/Choven-Meng/ML_Algorithm/tree/master/Unsupervised_Learning/K-means)
+
+### [AdaBoost](https://github.com/Choven-Meng/ML_Algorithm/tree/master/Ensemble%20Learning/boosting/AdaBoost)
