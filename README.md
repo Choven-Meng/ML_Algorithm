@@ -16,3 +16,7 @@
 
 ### [特征选择](https://github.com/WillKoehrsen/feature-selector)-----[介绍](https://mp.weixin.qq.com/s?__biz=MzI0NzE3NTAzOA==&mid=2652118479&idx=1&sn=8bce64113dd889ca67586c3e9fb3cf15&chksm=f254bfdec52336c8c59ad822ca9f231a6ba180e432e5ecf2ea72094f6953bd2a20990da31dbe&mpshare=1&scene=1&srcid=07062AfdeLtAl51FOzoGNGgT&rd2werd=1#wechat_redirect)
 
+
+### [XGBoost参数调优完全指南](https://blog.csdn.net/han_xiaoyang/article/details/52665396)
+
+### [Gradient Boosting Machine(GBM）](https://blog.csdn.net/han_xiaoyang/article/details/52663170)
