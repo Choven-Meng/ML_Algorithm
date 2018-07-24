@@ -26,6 +26,10 @@
 boosting是一种与bagging很类似的技术。不论是在boosting还是bagging当中，所使用的多个分类器的类型都是一致的。但是前者中，不同的分类器是通过**串行**训练获得的，每个分类器都根据已训练出的分类器的性能来进行训练。boosting是通过集中关注被已有分类器错分的那些数据来获得新的分类器。  
 由于boosting分类的结果是基于所有分类器的**加权求和**结果的，因此boosting和bagging不太一样。bagging中的分类器**权重相等**，而boosting中分类器权重不等，每个权重代表的是其对应分类器在**上一轮迭代中的成功度。**
 
-### * Adaboost
+* ###  Adaboost
 
-### * GBDT
+* ###  GBDT
+
+
+
+**bagging算法只能改善模型高方差（high variance）情况，Boosting算法对同时控制偏差（bias）和方差都有非常好的效果，而且更加高效**
