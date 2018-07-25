@@ -20,3 +20,5 @@
 ### [XGBoost参数调优完全指南](https://blog.csdn.net/han_xiaoyang/article/details/52665396)
 
 ### [Gradient Boosting Machine(GBM）](https://blog.csdn.net/han_xiaoyang/article/details/52663170)
+
+### [拟合结果的评价指标](https://blog.csdn.net/lipe12/article/details/51200510): 均方误差、平均绝对值误差等
