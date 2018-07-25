@@ -1,3 +1,9 @@
+[Forest （Isolation Forest）孤立森林](https://www.jianshu.com/p/5af3c66e0410?utm_campaign=maleskine)
+
+
+
+
+
 # 集成学习
 
 集成学习(ensemble learning)通过构建并结合多个学习器来完成学习任务，有时也被称为多分类器系统(multi-classifier system).  
