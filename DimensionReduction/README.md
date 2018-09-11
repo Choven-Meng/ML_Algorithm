@@ -9,7 +9,7 @@
 > (2)非线性降维方法：①基于核函数的方法：KPCA、KICA、KDA ;②基于特征值的方法：ISOMAP、LLE、LE、LPP、LTSA、MVU 
 
 或者将降维方法如下图分类：  
-<img src="https://img-blog.csdn.net/20171114215132632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGRqODg2Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="图片描述" title="">
+<img src="https://github.com/Choven-Meng/ML_Algorithm/blob/master/DimensionReduction/photo/%E9%99%8D%E7%BB%B4%E6%96%B9%E6%B3%95.png" alt="图片描述" title="">
 
 2、降维的作用：（为什么会有这些作用？）   
 > （1）降低时间的复杂度和空间复杂度   
@@ -36,7 +36,7 @@
   通过这种方式获得的新的坐标系，我们发现，大部分方差都包含在前面几个坐标轴中，后面的坐标轴所含的方差几乎为0,。于是，我们可以忽略余下的坐标轴，只保留前面的几个含有绝大部分方差的坐标轴。事实上，这样也就相当于只保留包含绝大部分方差的维度特征，而忽略包含方差几乎为0的特征维度，也就实现了对数据特征的降维处理。  
   那么，我们如何得到这些包含最大差异性的主成分方向呢？事实上，通过计算数据矩阵的协方差矩阵，然后得到协方差矩阵的特征值及特征向量，选择特征值最大（也即包含方差最大）的N个特征所对应的特征向量组成的矩阵，我们就可以将数据矩阵转换到新的空间当中，实现数据特征的降维（N维）。  
   既然，说到了协方差矩阵，那么这里就简单说一下方差和协方差之间的关系，首先看一下均值，方差和协方差的计算公式：  
-  <img style="display: block; margin-left: auto; margin-right: auto" src="https://images2015.cnblogs.com/blog/1134385/201706/1134385-20170624185717023-410393058.png" alt="">  
+  <img style="display: block; margin-left: auto; margin-right: auto" src="https://github.com/Choven-Meng/ML_Algorithm/blob/master/DimensionReduction/photo/%E6%96%B9%E5%B7%AE%E5%8D%8F%E6%96%B9%E5%B7%AE%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F.png" alt="">  
   
  由上面的公式，我们可以得到一下两点区别：   
  > （1）方差的计算公式，我们知道方差的计算是针对一维特征，即针对同一特征不同样本的取值来进行计算得到；而协方差则必须要求至少满足二维特征。可以说方差就是协方差的特殊情况。　  
@@ -54,3 +54,36 @@
 保留前N个最大的特征值对应的特征向量
 将数据转换到上面得到的N个特征向量构建的新空间中（实现了特征压缩）
 ```
+
+## 二. LDA线性判别分析
+
+线性判别式分析（Linear Discriminant Analysis），简称为LDA。也称为Fisher线性判别（Fisher Linear Discriminant，FLD），是模式识别的经典算法。  
+基本思想是将高维的模式样本投影到最佳鉴别矢量空间，以达到抽取分类信息和压缩特征空间维数的效果，投影后保证模式样本在新的子空间有**最大的类间距离和最小的类内距离，**即模式在该空间中有最佳的可分离性。   
+LDA与前面介绍过的PCA都是常用的降维技术。PCA主要是从特征的协方差角度，去找到比较好的投影方式。LDA更多的是考虑了标注，即希望投影后不同类别之间数据点的距离更大，同一类别的数据点更紧凑。
+
+给定N个特征为d维的样例x<sup>(i)</sup>{x1<sup>(i)</sup>,x2<sup>(i)</sup>,...,xd<sup>(i)</sup>}，其中有N1个样例属于类别w1，另外N2个样例属于类别w2。现在我们要将原始数据降低到只有一维，降维函数（或者叫投影函数）是：y=w<sup>T</sup>x，最后我们就依靠每个样例对应的y值来判别它属于哪一类。
+
+形象图为：   
+![](https://github.com/Choven-Meng/ML_Algorithm/blob/master/DimensionReduction/photo/LDA.png)
+
+我们就是要找到这个最佳的w，使得样例映射到y后最易于区分。   
+定义每类样例的均值点：<a href="https://www.codecogs.com/eqnedit.php?latex=u_{i}&space;=&space;\frac{1}{N_{i}}\sum&space;x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u_{i}&space;=&space;\frac{1}{N_{i}}\sum&space;x" title="u_{i} = \frac{1}{N_{i}}\sum x" /></a>  
+样例投影到y后有均值点为：<a href="https://www.codecogs.com/eqnedit.php?latex=\tilde{u}_{i}&space;=&space;\frac{1}{N_{i}}\sum&space;w^{T}x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\tilde{u}_{i}&space;=&space;\frac{1}{N_{i}}\sum&space;w^{T}x" title="\tilde{u}_{i} = \frac{1}{N_{i}}\sum w^{T}x" /></a>   
+我们希望投影后两类样例中心尽量地分离，即:<a href="https://www.codecogs.com/eqnedit.php?latex=|\tilde{u}_{i}&space;-&space;\tilde{u}_{i}|&space;=&space;|w^{T}(u_{1}&space;-&space;u_{2})|" target="_blank"><img src="https://latex.codecogs.com/gif.latex?|\tilde{u}_{i}&space;-&space;\tilde{u}_{i}|&space;=&space;|w^{T}(u_{1}&space;-&space;u_{2})|" title="|\tilde{u}_{i} - \tilde{u}_{i}| = |w^{T}(u_{1} - u_{2})|" /></a> **越大越好**   
+同时我们希望投影之后类内部的方差<a href="https://www.codecogs.com/eqnedit.php?latex=\tilde{s}_{i}^{2}&space;=&space;\sum&space;(y-u_{i})^{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\tilde{s}_{i}^{2}&space;=&space;\sum&space;(y-u_{i})^{2}" title="\tilde{s}_{i}^{2} = \sum (y-u_{i})^{2}" /></a> **越小越好。**   
+由于得到目标函数：   
+<a href="https://www.codecogs.com/eqnedit.php?latex={\color{Red}&space;max&space;J(w)&space;=&space;\frac{|\widetilde{u}_{1}&space;-&space;\widetilde{u}_{2}|^2}{s^1&space;&plus;&space;s^2}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{\color{Red}&space;max&space;J(w)&space;=&space;\frac{|\widetilde{u}_{1}&space;-&space;\widetilde{u}_{2}|^2}{s^1&space;&plus;&space;s^2}}" title="{\color{Red} max J(w) = \frac{|\widetilde{u}_{1} - \widetilde{u}_{2}|^2}{s^1 + s^2}}" /></a>
+
+又是个最优化问题。最终解得    
+<a href="https://www.codecogs.com/eqnedit.php?latex=w&space;=&space;(s_1&plus;s_2)^{2}(u_1&space;-&space;u_2)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w&space;=&space;(s_1&plus;s_2)^{2}(u_1&space;-&space;u_2)" title="w = (s_1+s_2)^{2}(u_1 - u_2)" /></a>  s1和s2分别中原始样例的方差。   
+如果<a href="https://www.codecogs.com/eqnedit.php?latex={\color{red}&space;y&space;=&space;w^Tx&space;-&space;w^Tu>0}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{\color{red}&space;y&space;=&space;w^Tx&space;-&space;w^Tu>0}" title="{\color{red} y = w^Tx - w^Tu>0}" /></a> (u是所有样本的均值)，就属于类别C<sub>1</sub>,否则就属于类别C<sub>2</sub>.
+
+假设有C个类别，降以一维已经不能满足分类要求了，我们需要k个基向量来做投影，W=[w1|w2|...|wk] 。样本点在这k维投影后的结果为[y1,y2,...,yk]，且有
+y<sub>i</sub> = w<sub>i</sub><sup>T</sup>x; y = W<sup>T</sup>x。
+
+**使用LDA的限制**  
+> 1. LDA至多可生成C-1维子空间   
+> 2. LDA不适合对非高斯分布的样本进行降维   
+> 3. LDA在样本分类信息依赖方差而不是均值时，效果不好。   
+> 4. LDA可能过度拟合数据。
+
