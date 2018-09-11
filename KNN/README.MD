@@ -17,27 +17,27 @@ K近邻法中，当训练集、距离度量（如欧氏距离）、k值及分类
 ## 距离度量
 
 特征空间中两个实例点的距离是两个实例点相似程度的反应。K近邻模型的特征空间一般是n维实数向量空间Rn。使用的距离是欧氏距离。  
-设特征空间$\chi$是n维实数向量空间$R_n$,$x_i{2} , x_j{2} \in \chi$
+设特征空间<a href="https://www.codecogs.com/eqnedit.php?latex=$\chi$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$\chi$" title="$\chi$" /></a>是n维实数向量空间<a href="https://www.codecogs.com/eqnedit.php?latex=$R_n$,$x_i{2}&space;,&space;x_j{2}&space;\in&space;\chi$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$R_n$,$x_i{2}&space;,&space;x_j{2}&space;\in&space;\chi$" title="$R_n$,$x_i{2} , x_j{2} \in \chi$" /></a>
 
-$$x_i, x_j \in \chi; $$    
+<a href="https://www.codecogs.com/eqnedit.php?latex=$$&space;x_i,&space;x_j&space;\in&space;\chi;&space;$$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$$&space;x_i,&space;x_j&space;\in&space;\chi;&space;$$" title="$$ x_i, x_j \in \chi; $$" /></a>    
 
-$x_i={(x_i^1,x_i^2,\cdots,x_i^n)}^T;x_j={(x_j^1,x_j^2,\cdots,x_j^n)}^T$
+<a href="https://www.codecogs.com/eqnedit.php?latex=$&space;x_i={(x_i^1,x_i^2,\cdots,x_i^n)}^T;x_j={(x_j^1,x_j^2,\cdots,x_j^n)}^T$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$&space;x_i={(x_i^1,x_i^2,\cdots,x_i^n)}^T;x_j={(x_j^1,x_j^2,\cdots,x_j^n)}^T$" title="$ x_i={(x_i^1,x_i^2,\cdots,x_i^n)}^T;x_j={(x_j^1,x_j^2,\cdots,x_j^n)}^T$" /></a>
 
-$x_i,x_j$的$L_p$距离定义为：
+x<sub>i</sub>,x<sub>j</sub>的L<sub>p</sub>距离定义为：
 
-$L_p（x_i,x_j）=\sqrt[p]{\sum_{l=1}^n|x_i^{(l)}-x_j^{(l)}|^p )}$
+<a href="https://www.codecogs.com/eqnedit.php?latex=$L_P(x_i,x_j)=\sqrt[p]{\sum_{l=1}^n|x_i^{(l)}-x_j^{(l)}|^p&space;)}$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$L_P(x_i,x_j)=\sqrt[p]{\sum_{l=1}^n|x_i^{(l)}-x_j^{(l)}|^p&space;)}$" title="$L_P(x_i,x_j)=\sqrt[p]{\sum_{l=1}^n|x_i^{(l)}-x_j^{(l)}|^p )}$" /></a>
 
 这里p>=1，当p=2时，成为欧氏距离，即
 
-$L_2(x_i,x_j）=\sqrt[2]{(\sum_{l=1}^n|x_i^{(l)} -x_j^{(l)}|^2 }$
+<a href="https://www.codecogs.com/eqnedit.php?latex=$L_2(x_i,x_)&space;=\sqrt[2]{(\sum_{l=1}^n|x_i^{(l)}&space;-x_j^{(l)}|^2&space;}$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$L_2(x_i,x_)&space;=\sqrt[2]{(\sum_{l=1}^n|x_i^{(l)}&space;-x_j^{(l)}|^2&space;}$" title="$L_2(x_i,x_) =\sqrt[2]{(\sum_{l=1}^n|x_i^{(l)} -x_j^{(l)}|^2 }$" /></a>
 
 当p=1时，成为曼哈顿距离，即
 
-$L_1（x_i,x_j ）= \sum_{(l=1)}^n|x_i^{(l)}-x_j^{(l)} |$
+<a href="https://www.codecogs.com/eqnedit.php?latex=$L_1(x_i,x_j)=&space;\sum_{(l=1)}^n|x_i^{(l)}-x_j^{(l)}&space;|$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$L_1(x_i,x_j)=&space;\sum_{(l=1)}^n|x_i^{(l)}-x_j^{(l)}&space;|$" title="$L_1(x_i,x_j)= \sum_{(l=1)}^n|x_i^{(l)}-x_j^{(l)} |$" /></a>
 
-当p=$\infty$时，它是各个坐标距离的最大值，即
+当p=<a href="https://www.codecogs.com/eqnedit.php?latex=$\infty$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$\infty$" title="$\infty$" /></a>时，它是各个坐标距离的最大值，即
 
-$L_\infty（x_i,x_j ）=max|x_i^{(l)}-x_j^{(l)} |$
+<a href="https://www.codecogs.com/eqnedit.php?latex=$L_\infty(x_i,x_j)=max|x_i^{(l)}-x_j^{(l)}&space;|$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$L_\infty(x_i,x_j)=max|x_i^{(l)}-x_j^{(l)}&space;|$" title="$L_\infty(x_i,x_j)=max|x_i^{(l)}-x_j^{(l)} |$" /></a>
 
 ## k值的选择
 
