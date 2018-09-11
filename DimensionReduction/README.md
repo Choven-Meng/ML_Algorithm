@@ -87,3 +87,9 @@ y<sub>i</sub> = w<sub>i</sub><sup>T</sup>x; y = W<sup>T</sup>x。
 > 3. LDA在样本分类信息依赖方差而不是均值时，效果不好。   
 > 4. LDA可能过度拟合数据。
 
+## 三. LLE局部线性嵌入
+
+局部线性嵌入(Locally Linear Embedding，以下简称LLE)也是非常重要的降维方法。和传统的PCA，LDA等关注样本方差的降维方法相比，LLE关注于降维时保持样本局部的线性特征，由于LLE在降维时保持了样本的局部特征，它广泛的用于图像图像识别，高维数据可视化等领域。  
+推导过程及流形学习详解[链接](https://www.cnblogs.com/pinard/p/6266408.html?utm_source=itdadao&utm_medium=referral)  
+利用Sklearn实现code[链接](https://www.cnblogs.com/pinard/p/6273377.html)
+
