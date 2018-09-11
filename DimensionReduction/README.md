@@ -97,4 +97,4 @@ y<sub>i</sub> = w<sub>i</sub><sup>T</sup>x; y = W<sup>T</sup>x。
 
 拉普拉斯矩阵可表示为一个无向图，其各个点之间的都有相应的边连接，我们用某个指标（这地方可以任意选择，比如欧氏距离、测地距离、或者高斯相似度等）来衡量两个点的相似度，表示为W=∑wij，没有边连接的其相似度自然为零，W是个对称矩阵；某个点的与所有点的相似度之和，表示为D=dig(d);d=rowSum(W)；D是个对角阵；我们的拉普拉斯矩阵则是L=D−W. 详情[链接](https://blog.csdn.net/yujianmin1990/article/details/48420483)  
 
-![](https://github.com/Choven-Meng/ML_Algorithm/tree/master/DimensionReduction/photo/拉普拉斯.PNG)
+![](https://github.com/Choven-Meng/ML_Algorithm/blob/master/DimensionReduction/photo/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF.PNG)
