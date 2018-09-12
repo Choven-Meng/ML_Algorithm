@@ -109,7 +109,7 @@ KNN即最近邻算法，主要过程为：
 
 **准确率Accuracy、查准率(精确率)precision、查全率(召回率)recall、F1：**
 
-<img src="photos/结果.png" width=256 height=256 />
+<img src="photos/结果.png" width=356 height=256 />
 
 查准率是针对我们**预测结果**而言的，它表示的是预测为正的样本中有多少是对的。那么预测为正就有两种可能了，一种就是把正类预测为正类(TP)，另一种就是把负类预测为正类(FP)。   
 &emsp;&emsp;&emsp;&emsp; **P = TP / (TP + FP)**
