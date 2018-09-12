@@ -1,6 +1,6 @@
 # Algorithms
 
-## [机器学习算法选择](/AlgorithmSelection)
+## [模型的选择与性能评估](/AlgorithmSelection)
 
 ## [降维](/DimensionReduction)   
   * ### [PCA](/DimensionReduction#一-pca主成分分析)   
