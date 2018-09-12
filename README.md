@@ -1,5 +1,7 @@
 # Algorithms
 
+## [机器学习算法选择](/AlgorithmSelection)
+
 ## [降维](/DimensionReduction)   
   * ### [PCA](/DimensionReduction#一-pca主成分分析)   
   * ### [LDA](/DimensionReduction#二-lda线性判别分析)  
