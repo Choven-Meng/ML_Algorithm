@@ -270,3 +270,32 @@ mae = metrics.mean_absolute_error(y_hat,y_true)
 
 #### 2.分类损失
 
+**Hinge Loss/多分类 SVM 损失**
+
+简言之，在一定的安全间隔内（通常是 1），正确类别的分数应高于所有错误类别的分数之和。因此 hinge loss 常用于最大间隔分类（maximum-margin classification），最常用的是支持向量机。尽管不可微，但它是一个凸函数，因此可以轻而易举地使用机器学习领域中常用的凸优化器。
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=SVMLoss&space;=&space;\sum_{j\neq&space;y_i}max(0,s_j&space;-&space;s_{y_i}&plus;1)" target="_blank"><img src="https://latex.codecogs.com/png.latex?SVMLoss&space;=&space;\sum_{j\neq&space;y_i}max(0,s_j&space;-&space;s_{y_i}&plus;1)" title="SVMLoss = \sum_{j\neq y_i}max(0,s_j - s_{y_i}+1)" /></a>
+
+**交叉熵损失/负对数似然：**
+
+这是分类问题中最常见的设置。随着预测概率偏离实际标签，交叉熵损失会逐渐增加。
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=CrossEntropyLoss&space;=&space;-(y_ilog\widetilde{y_i}&plus;(1-y_i)log(1-\widetilde{y_i}))" target="_blank"><img src="https://latex.codecogs.com/png.latex?CrossEntropyLoss&space;=&space;-(y_ilog\widetilde{y_i}&plus;(1-y_i)log(1-\widetilde{y_i}))" title="CrossEntropyLoss = -(y_ilog\widetilde{y_i}+(1-y_i)log(1-\widetilde{y_i}))" /></a>
+
+当实际标签为 1(y(i)=1) 时，函数的后半部分消失，而当实际标签是为 0(y(i=0)) 时，函数的前半部分消失。简言之，我们只是把对真实值类别的实际预测概率的对数相乘。还有重要的一点是，交叉熵损失会重重惩罚那些置信度高但是错误的预测值。
+
+```
+import numpy as np
+predictions = np.array([[0.25,0.25,0.25,0.25],
+                        [0.01,0.01,0.01,0.96]])
+targets = np.array([[0,0,0,1],
+                   [0,0,0,1]])
+def cross_entropy(predictions, targets, epsilon=1e-10):
+    predictions = np.clip(predictions, epsilon, 1. - epsilon)
+    N = predictions.shape[0]
+    ce_loss = -np.sum(np.sum(targets * np.log(predictions + 1e-5)))/N
+    return ce_loss
+cross_entropy_loss = cross_entropy(predictions, targets)
+print ("Cross entropy loss is: " + str(cross_entropy_loss))
+```
+
