@@ -1,6 +1,11 @@
 # Algorithms
 
-## [模型的选择与性能评估](/AlgorithmSelection)
+## [模型的选择与性能评估](/AlgorithmSelection)    
+  * ### [模型选择](/AlgorithmSelection#一-模型选择)   
+  * ### [机器学习性能评估](/AlgorithmSelection#二-机器学习性能评估指标)   
+  * ### [算法泛化性能](/AlgorithmSelection#三-算法泛化性能)   
+  * ### [损失函数](/AlgorithmSelection#四-损失函数)
+  * ### [梯度上升/下降]()
 
 ## [降维](/DimensionReduction)   
   * ### [PCA](/DimensionReduction#一-pca主成分分析)   
