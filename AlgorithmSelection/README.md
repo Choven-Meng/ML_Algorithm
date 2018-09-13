@@ -107,7 +107,7 @@ KNN即最近邻算法，主要过程为：
 
 ### 二. 机器学习性能评估指标
 
-**准确率Accuracy、查准率(精确率)precision、查全率(召回率)recall、F1：**
+#### 准确率Accuracy、查准率(精确率)precision、查全率(召回率)recall、F1：
 
 <img src="photos/结果.png" width=356 height=256 />
 
@@ -133,6 +133,43 @@ F1的一般形式为：
 
 其中β>0度量了查全率对查准率的想对重要性。β = 1时为标准的F1。β>1时查全率有更大影响；β<1时查准率有更大影响。
 
+#### ROC与AUC
+
+ROC全称是“受试者工作特征”(Receiver Operating Characteristic)曲线，与上节中的P-R曲线相似，我们根据学习器的预测结果进行排序，按此顺序逐个把样本作为正例进行预测，每次计算两个重要量的值，分别以他们为横、纵坐标作图，就得到ROC曲线，与P-R曲线采用查准率、查全率为纵、横轴不同，ROC曲线的纵轴是“真正例率”
+(True Positive Rate, TPR),横轴是“假正例率”(False Positive Rate, FPR),公式为：  
+TPR = TP / (TP + FN);&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;FPR = FP / (FP + TN)    
+
+<img src="photos/roc.png" width=256 height=256 />
+
+* 横坐标：1-Specificity，伪正类率(False positive rate， FPR)，**预测为正但实际为负的样本占所有负例样本的比例，**越大，负类越多   
+* 纵坐标：Sensitivity，真正类率(True positive rate， TPR)，**预测为正且实际为正的样本占所有正例样本的比例，**越大，正类越多。  
+* 理想目标：TPR=1，FPR=0，即图中(0,1)点，故ROC曲线越靠拢(0,1)点，越偏离45度对角线越好，Sensitivity、Specificity越大效果越好。
+
+在一个二分类模型中，假设采用逻辑回归分类器，其给出针对每个实例为正类的概率，那么通过设定一个阈值如0.6，概率大于等于0.6的为正类，小于0.6的为负类。对应的就可以算出一组(FPR,TPR)，在平面中得到对应坐标点。随着阈值的逐渐减小，越来越多的实例被划分为正类，但是这些正类中同样也掺杂着真正的负实例，即TPR和FPR会同时增大。阈值最大时，对应坐标点为(0,0)，阈值最小时，对应坐标点(1,1)。
+
+AUC值是一个概率值，当你随机挑选一个正样本以及一个负样本，当前的分类算法根据计算得到的Score值将这个正样本排在负样本前面的概率就是AUC值。当然，AUC值越大，当前的分类算法越有可能将正样本排在负样本前面，即能够更好的分类。
+
+从AUC判断分类器（预测模型）优劣的标准：  
+> * AUC = 1，是完美分类器，采用这个预测模型时，存在至少一个阈值能得出完美预测。绝大多数预测的场合，不存在完美分类器。  
+> * 0.5 < AUC < 1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。   
+> * AUC = 0.5，跟随机猜测一样（例：丢铜板），模型没有预测价值。   
+> * AUC < 0.5，比随机猜测还差；但只要总是反预测而行，就优于随机猜测。
+
+**PRC与ROC的比较：**
+
+> AUC是ROC的积分（曲线下面积），是一个数值，一般认为越大越好，数值相对于曲线而言更容易当做调参的参照。  
+> PR曲线会面临一个问题，当需要获得更高recall时，model需要输出更多的样本，precision可能会伴随出现下降/不变/升高，得到的曲线会出现浮动差异（出现锯齿），无法像ROC一样保证单调性。  
+> 在正负样本分布得极不均匀(highly skewed datasets)的情况下，PRC比ROC能更有效地反应分类器的好坏。
+
+```
+from sklearn import metrics
+y_true = [1, 1, 0, 0, 1]
+y_score = [0.5, 0.6, 0.55, 0.4, 0.7 ]
+
+fpr, tpr, thresholds = metrics.roc_curve(y_true, y_score) # 计算坐标点和阈值，大于阈值为类别1，小于阈值为类别0
+auc = metrics.auc(fpr,tpr) # 计算auc值
+```
+
 ### 三. 算法泛化性能：
 
 **偏差-方差分解**是解释学习算法泛化性能的重要工具。
@@ -154,3 +191,41 @@ f(x)：在训练集D上学得模型f，使用模型f预测x的期望值为f(x)�
 方差、偏差、泛化误差之间的关系如下图所示：
 
 <img src="photos/方差偏差泛化误差关系.png" width=256 height=256 />
+
+### 四. 损失函数
+
+常用的损失函数分为两大类：分类和回归。分别对这两类进行细分，其中回归中包含了一种不太常见的损失函数：平均偏差误差，可以用来确定模型中存在正偏差还是负偏差。   
+
+机器通过损失函数进行学习。这是一种评估特定算法对给定数据建模程度的方法。如果预测值与实际结果偏离较远，损失函数会得到一个非常大的值。在一些优化函数的辅助下，损失函数逐渐学会减少预测值的误差。
+
+没有一个适合所有机器学习算法的损失函数。针对特定问题选择损失函数涉及到许多因素，比如所选机器学习算法的类型、是否易于计算导数以及数据集中异常值所占比例。
+
+从学习任务的类型出发，可以从广义上将损失函数分为两大类——回归损失和分类损失。在分类任务中，我们要从类别值有限的数据集中预测输出，比如给定一个手写数字图像的大数据集，将其分为 0～9 中的一个。而回归问题处理的则是连续值的预测问题，例如给定房屋面积、房间数量以及房间大小，预测房屋价格。  
+
+#### 1.回归损失
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=MSE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})^2}{n}" target="_blank"><img src="https://latex.codecogs.com/png.latex?MSE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})^2}{n}" title="MSE = \frac{\sum_{i=1}^{n}(y_i - \widetilde{y_i})^2}{n}" /></a>
+
+均方误差（MSE）度量的是预测值和实际观测值间差的平方的均值。它只考虑误差的平均大小，不考虑其方向。但由于经过平方，与真实值偏离较多的预测值会比偏离较少的预测值受到更为严重的惩罚。再加上 MSE 的数学特性很好，这使得计算梯度变得更容易。
+
+```
+import numpy as np
+y_hat = np.array([0.000, 0.166, 0.333])
+y_true = np.array([0.000, 0.254, 0.998])
+def rmse(predictions, targets):
+    differences = predictions - targets
+    differences_squared = differences ** 2
+    mean_of_differences_squared = differences_squared.mean()
+    #rmse_val = np.sqrt(mean_of_differences_squared) # 均方根误差
+    rmse_val = mean_of_differences_squared  # 均方误差
+    return rmse_val
+print("d is: " + str(["%.8f" % elem for elem in y_hat]))
+print("p is: " + str(["%.8f" % elem for elem in y_true]))
+rmse_val = rmse(y_hat, y_true)
+print("rms error is: " + str(rmse_val))
+
+
+#  sklearn 实现
+from sklearn import metrics
+mse = metrics.mean_squared_error(y_pred=y_hat,y_true=y_true)
+```
