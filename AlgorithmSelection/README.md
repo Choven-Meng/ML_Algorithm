@@ -104,6 +104,7 @@ KNN即最近邻算法，主要过程为：
 
 首当其冲应该选择的就是逻辑回归，如果它的效果不怎么样，那么可以将它的结果作为基准来参考；然后试试决策树（随机森林）是否可以大幅度提升模型性能。即使你并没有把它当做最终模型，你也可以使用随机森林来移除噪声变量；如果特征的数量和观测样本特别多，那么当资源和时间充足时，使用SVM不失为一种选择。
 
+--------------------------------------------------------
 
 ### 二. 机器学习性能评估指标
 
@@ -170,6 +171,8 @@ fpr, tpr, thresholds = metrics.roc_curve(y_true, y_score) # 计算坐标点和�
 auc = metrics.auc(fpr,tpr) # 计算auc值
 ```
 
+----------------------------------------------------------------
+
 ### 三. 算法泛化性能：
 
 **偏差-方差分解**是解释学习算法泛化性能的重要工具。
@@ -192,6 +195,8 @@ f(x)：在训练集D上学得模型f，使用模型f预测x的期望值为f(x)�
 
 <img src="photos/方差偏差泛化误差关系.png" width=256 height=256 />
 
+-------------------------------------------------------
+
 ### 四. 损失函数
 
 常用的损失函数分为两大类：分类和回归。分别对这两类进行细分，其中回归中包含了一种不太常见的损失函数：平均偏差误差，可以用来确定模型中存在正偏差还是负偏差。   
@@ -203,6 +208,8 @@ f(x)：在训练集D上学得模型f，使用模型f预测x的期望值为f(x)�
 从学习任务的类型出发，可以从广义上将损失函数分为两大类——回归损失和分类损失。在分类任务中，我们要从类别值有限的数据集中预测输出，比如给定一个手写数字图像的大数据集，将其分为 0～9 中的一个。而回归问题处理的则是连续值的预测问题，例如给定房屋面积、房间数量以及房间大小，预测房屋价格。  
 
 #### 1.回归损失
+
+**均方误差/平方损失/L2 损失:**
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=MSE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})^2}{n}" target="_blank"><img src="https://latex.codecogs.com/png.latex?MSE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})^2}{n}" title="MSE = \frac{\sum_{i=1}^{n}(y_i - \widetilde{y_i})^2}{n}" /></a>
 
@@ -229,3 +236,37 @@ print("rms error is: " + str(rmse_val))
 from sklearn import metrics
 mse = metrics.mean_squared_error(y_pred=y_hat,y_true=y_true)
 ```
+
+**平均绝对误差/L1 损失:**
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=MAE&space;=&space;\frac{\sum_{i=1}^{n}|y_i&space;-&space;\widetilde{y_i}|}{n}" target="_blank"><img src="https://latex.codecogs.com/png.latex?MAE&space;=&space;\frac{\sum_{i=1}^{n}|y_i&space;-&space;\widetilde{y_i}|}{n}" title="MAE = \frac{\sum_{i=1}^{n}|y_i - \widetilde{y_i}|}{n}" /></a>
+
+平均绝对误差（MAE）度量的是预测值和实际观测值之间绝对差之和的平均值。和 MSE 一样，这种度量方法也是在不考虑方向的情况下衡量误差大小。但和 MSE 的不同之处在于，MAE 需要像线性规划这样更复杂的工具来计算梯度。此外，**MAE 对异常值更加稳健，**因为它不使用平方。
+
+```
+import numpy as np
+y_hat = np.array([0.000, 0.166, 0.333])
+y_true = np.array([0.000, 0.254, 0.998])
+
+def mae(predictions, targets):
+    differences = predictions - targets
+    absolute_differences = np.absolute(differences)
+    mean_absolute_differences = absolute_differences.mean()
+    return mean_absolute_differences
+mae_val = mae(y_hat, y_true)
+print ("mae error is: " + str(mae_val))
+
+# sklearn
+from sklearn import metrics
+mae = metrics.mean_absolute_error(y_hat,y_true)
+```
+
+**平均偏差误差（mean bias error）**
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=MAE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})}{n}" target="_blank"><img src="https://latex.codecogs.com/png.latex?MAE&space;=&space;\frac{\sum_{i=1}^{n}(y_i&space;-&space;\widetilde{y_i})}{n}" title="MAE = \frac{\sum_{i=1}^{n}(y_i - \widetilde{y_i})}{n}" /></a>
+
+与其它损失函数相比，这个函数在机器学习领域没有那么常见。它与 MAE 相似，唯一的区别是这个函数没有用绝对值。用这个函数需要注意的一点是，正负误差可以互相抵消。尽管在实际应用中没那么准确，但它可以**确定模型存在正偏差还是负偏差**。
+
+
+#### 2.分类损失
+
