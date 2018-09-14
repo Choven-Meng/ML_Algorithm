@@ -134,6 +134,28 @@ F1的一般形式为：
 
 其中β>0度量了查全率对查准率的想对重要性。β = 1时为标准的F1。β>1时查全率有更大影响；β<1时查准率有更大影响。
 
+```
+import numpy as np
+y_true = np.array([0, 1, 1, 0, 1, 0])
+y_pred = np.array([1, 1, 1, 0, 0, 1])
+
+# True Positive
+TP = np.sum(np.multiply(y_true,y_pred))
+print(TP)  # output:2
+
+# false positive
+FP = np.sum(np.logical_and(np.equal(y_true, 0), np.equal(y_pred, 1))) # 逻辑与
+print(FP)  # output:2
+
+# false negative
+FN = np.sum(np.logical_and(np.equal(y_true, 1), np.equal(y_pred, 0)))
+print(FN)  # output:1
+
+# true negative
+TN = np.sum(np.logical_and(np.equal(y_true, 0), np.equal(y_pred, 0)))
+print(TN) #output:1
+```
+
 #### ROC与AUC
 
 ROC全称是“受试者工作特征”(Receiver Operating Characteristic)曲线，与上节中的P-R曲线相似，我们根据学习器的预测结果进行排序，按此顺序逐个把样本作为正例进行预测，每次计算两个重要量的值，分别以他们为横、纵坐标作图，就得到ROC曲线，与P-R曲线采用查准率、查全率为纵、横轴不同，ROC曲线的纵轴是“真正例率”
