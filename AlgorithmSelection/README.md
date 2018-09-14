@@ -154,6 +154,45 @@ print(FN)  # output:1
 # true negative
 TN = np.sum(np.logical_and(np.equal(y_true, 0), np.equal(y_pred, 0)))
 print(TN) #output:1
+
+
+## sklearn 实现
+from sklearn import  metrics
+y_true = [0, 1, 1, 0, 1, 0]
+y_pred = [1, 1, 1, 0, 0, 1]
+ 
+p = metrics.precision_score(y_true, y_pred, average='binary')
+r = metrics.recall_score(y_true, y_pred, average='binary')
+f1score = metrics.f1_score(y_true, y_pred, average='binary')
+ 
+print(p) #output：0.5
+print(r) # output：0.67
+print(f1score)  #output：0.57
+
+
+## tensorflow 实现
+import tensorflow as tf
+ 
+sess = tf.Session()
+ 
+y_true = tf.constant([0, 1, 1, 0, 1, 0])
+y_pred = tf.constant([1, 1, 1, 0, 0, 1])
+ 
+# true positive
+TP = tf.reduce_sum(tf.multiply(y_true, y_pred))
+print(sess.run(TP))
+ 
+# false positive
+FP = tf.reduce_sum(tf.cast(tf.logical_and(tf.equal(y_true, 0), tf.equal(y_pred, 1)), tf.int32))
+print(sess.run(FP))
+ 
+# false negative
+FN = tf.reduce_sum(tf.cast(tf.logical_and(tf.equal(y_true, 1), tf.equal(y_pred, 0)), tf.int32))
+print(sess.run(FN))
+ 
+# true negative
+TN = tf.reduce_sum(tf.cast(tf.logical_and(tf.equal(y_true, 0), tf.equal(y_pred, 0)), tf.int32))
+print(sess.run(TN))
 ```
 
 #### ROC与AUC
