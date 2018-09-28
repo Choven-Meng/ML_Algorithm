@@ -2,6 +2,8 @@
 也可以认为是定义在特征空间与类空间上的条件概率分布。主要优点是 **模型具有可读性，分类速度快**。**学习时，利用训练数据，根据损失函数最小化的原则建立决策树模型。预测时，对新的数据，利用决策树模型进行分类**。  
 决策树学习通常包括3个步骤：**特征选择、决策树的生成和决策树的修剪**。  
 
+ <img src="https://pic1.zhimg.com/80/v2-b84f27024b097eb4c9245e8a04504b7a_hd.jpg" data-caption="" data-size="normal" data-rawwidth="759" data-rawheight="356"  width="759" >
+
 # 1、决策树模型与学习
 
 ## 1.1、决策树模型
@@ -218,14 +220,25 @@ N<sub>t</sub>个样本点，其中k类样本点有N<sub>tk</sub>个，k=1,2,...,
  > 2. 决策树剪枝：用验证数据集最已生成的树进行剪枝并选择最优子树，这时用损失函数最小作为剪枝的标准。
  
  ![](photos/CART1.PNG)
- ![](photos/CART2. png)
+ ![](photos/CART2.png)
  
  ## 5.1、CART生成  
  
- &emsp;&emsp;CART 树的生成就是递归地构建二叉决策树的过程。**对回归树用平方误差最小化准则，对分类树用基尼指数最小化准则** ，进行特征选择，生成二叉树。  
- 
+ &emsp;&emsp;CART 树的生成就是递归地构建二叉决策树的过程。**对回归树用平方误差最小化准则，对分类树用基尼指数最小化准则** ，进行特征选择，生成二叉树。    
+
+**如何选择分裂的属性：**   
+&emsp;&emsp;分裂的目的是为了能够让数据变纯，使决策树输出的结果更接近真实值。那么CART是如何评价节点的纯度呢？如果是**分类树，CART采用GINI值衡量节点纯度；如果是回归树，采用样本方差衡量节点纯度**。节点越不纯，节点分类或者预测的效果就越差。
+   
  #### （1）回归树的生成
- 
+  
+  回归方差计算公式：  
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\sigma&space;=&space;\sqrt{\sum&space;(x_i-\mu)^2}&space;=&space;\sqrt&space;{\sum&space;x_i^2&space;-&space;n\mu^2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sigma&space;=&space;\sqrt{\sum&space;(x_i-\mu)^2}&space;=&space;\sqrt&space;{\sum&space;x_i^2&space;-&space;n\mu^2}" title="\sigma = \sqrt{\sum (x_i-\mu)^2} = \sqrt {\sum x_i^2 - n\mu^2}" /></a>  
+   方差越大，表示该节点的数据越分散，预测的效果就越差。如果一个节点的所有数据都相同，那么方差就为0，此时可以很肯定得认为该节点的输出值；如果节点的数据相差很大，那么输出的值有很大的可能与实际值相差较大。  
+   
+   因此，无论是分类树还是回归树，CART都要选择使子节点的GINI值或者回归方差最小的属性作为分裂的方案。即最小化（分类树）：
+   
+   回归树：<a href="https://www.codecogs.com/eqnedit.php?latex=Gain&space;=&space;\sum&space;\sigma_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Gain&space;=&space;\sum&space;\sigma_i" title="Gain = \sum \sigma_i" /></a>
+   
  &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; <img width="388" height="298" alt="回归树" src="http://images0.cnblogs.com/blog/790160/201508/281728156254454.png" border="0">
  
  ### （2）分类树的生成
@@ -256,6 +269,19 @@ N<sub>t</sub>个样本点，其中k类样本点有N<sub>tk</sub>个，k=1,2,...,
  简单来说，基尼指数反映了数据集合的混乱程度。当基尼指数越大时，当前数据越混沌的，分布均匀时取极值。
  
  **举例分析基尼指数是如何一并选择特征向量和寻找最佳切分点的：**    
+ 
+ 节点的分裂分为两种情况，连续型的数据和离散型的数据。   
+ 
+ CART对连续型属性的处理与C4.5差不多，通过最小化分裂后的GINI值或者样本方差寻找最优分割点，将节点一分为二，详见C4.5.  
+ 
+ 对于离散型属性，理论上有多少个离散值就应该分裂成多少个节点。但CART是一棵**二叉树**，每一次分裂只会产生两个节点，方法是：将其中一个离散值独立作为一个节点，其他的离散值生成另外一个节点即可。这种分裂方案有多少个离散值就有多少种划分方法，举一个简单的例子：如果某离散属性有三个离散值x,y,z，则属性的分裂方法有：[{x},{y,z}]、[{y},{x,z}]、[{z},{x,y}]，分别计算每种划分方法的基尼值或者样本方差确定最优的方法。  
+ 
+   以属性“职业”为例，一共有三个离散值，“学生”、“老师”、“上班族”。该属性有三种划分的方案，分别为{“学生”}、{“老师”、“上班族”}，{“老师”}、{“学生”、“上班族”}，{“上班族”}、{“学生”、“老师”}，分别计算三种划分方案的子节点GINI值或者样本方差，选择最优的划分方法，如下图所示：   
+   <img width="240" height="50" src="photos/cart举例1.png" >
+   
+   
+ 
+ 
  
  > 下表是一个由15个样本组成的贷款申请训练数据:  
  > <img width="300" height="250" src="https://img-blog.csdn.net/20161121195010647" alt="Alt text" title="">
@@ -298,7 +324,7 @@ Gini(D,A<sub>4</sub>=3)最小，所以A<sub>4</sub>=3为A<sub>4</sub>的最优�
  （4）生成CART决策树   
  算法停止计算的条件是结点中的样本个数小于预定阈值，或样本集的基尼指数小于预定阈值，或者没有更多特征。  
  
- <img src="https://pic1.zhimg.com/80/v2-b84f27024b097eb4c9245e8a04504b7a_hd.jpg" data-caption="" data-size="normal" data-rawwidth="759" data-rawheight="356"  width="759" >
+
  
  
  ## 连续值和缺失值处理  
@@ -323,4 +349,4 @@ Gini(D,A<sub>4</sub>=3)最小，所以A<sub>4</sub>=3为A<sub>4</sub>的最优�
 
 <img src="photos/缺失值公式3.png" >
 
-![](photos/缺失值处理.PNG)
+<img src="photos/缺失值处理.PNG" >
