@@ -17,7 +17,7 @@
 
 ## [Naive_Bayes](https://github.com/Choven-Meng/Algorithms/tree/master/Naive_Bayes)
 
-## [DT](https://github.com/Choven-Meng/Algorithms/tree/master/DT)
+## [DT](https://blog.csdn.net/choven_meng/article/details/82878018)
 
 ## [LogisticRegression](https://github.com/Choven-Meng/ML_Algorithm/tree/master/LogisticRegression)
 
